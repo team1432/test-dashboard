@@ -2,21 +2,6 @@
 var ui = {
 	timer: document.getElementById('timer'),
 	robotState: document.getElementById('robot-state'),
-	gyro: {
-		container: document.getElementById('gyro'),
-		val: 0,
-		offset: 0,
-		visualVal: 0,
-		arm: document.getElementById('gyro-arm'),
-		number: document.getElementById('gyro-number')
-	},
-	robotDiagram: {
-		arm: document.getElementById('robot-arm')
-	},
-	example: {
-		button: document.getElementById('example-button'),
-		readout: document.getElementById('example-readout')
-	},
 	tuning: {
 		list: document.getElementById('tuning'),
 		button: document.getElementById('tuning-button'),
@@ -26,7 +11,8 @@ var ui = {
 		get: document.getElementById('get')
 	},
 	autoSelect: document.getElementById('auto-select'),
-    armPosition: document.getElementById('arm-position')
+  lowerMotorSpeed: document.getElementById('lower-speed'),
+  upperMotorSpeed: document.getElementById('upper-speed')
 };
 
 // Sets function to be called on NetworkTables connect. Commented out because it's usually not necessary.
@@ -53,17 +39,6 @@ function onValueChanged(key, value, isNew) {
 
 	// This switch statement chooses which UI element to update when a NetworkTables variable changes.
 	switch (key) {
-		case '/SmartDashboard/drive/navX/yaw': // Gyro rotation
-			ui.gyro.val = value;
-			ui.gyro.visualVal = Math.floor(ui.gyro.val - ui.gyro.offset);
-			if (ui.gyro.visualVal < 0) { // Corrects for negative values
-				ui.gyro.visualVal += 360;
-			}
-			ui.gyro.arm.style.transform = ('rotate(' + ui.gyro.visualVal + 'deg)');
-			ui.gyro.number.innerHTML = ui.gyro.visualVal + 'º';
-			break;
-			// The following case is an example, for a robot with an arm at the front.
-			// Info on the actual robot that this works with can be seen at thebluealliance.com/team/1418/2016.
 		case '/SmartDashboard/arm/encoder':
 			// 0 is all the way back, 1200 is 45 degrees forward. We don't want it going past that.
 			if (value > 1140) {
@@ -78,17 +53,6 @@ function onValueChanged(key, value, isNew) {
 			ui.robotDiagram.arm.style.transform = 'rotate(' + armAngle + 'deg)';
 			break;
 			// This button is just an example of triggering an event on the robot by clicking a button.
-		case '/SmartDashboard/exampleVariable':
-			if (value) { // If function is active:
-				// Add active class to button.
-				ui.example.button.className = 'active';
-				ui.example.readout.innerHTML = 'Value is true';
-			} else { // Otherwise
-				// Take it off
-				ui.example.button.className = '';
-				ui.example.readout.innerHTML = 'Value is false';
-			}
-			break;
 		case '/SmartDashboard/timeRunning':
 			// When this NetworkTables variable is true, the timer will start.
 			// You shouldn't need to touch this code, but it's documented anyway in case you do.
@@ -124,23 +88,6 @@ function onValueChanged(key, value, isNew) {
 				s = 135;
 			}
 			NetworkTables.setValue(key, false);
-			break;
-		case '/SmartDashboard/autonomous/options': // Load list of prewritten autonomous modes
-			// Clear previous list
-			while (ui.autoSelect.firstChild) {
-				ui.autoSelect.removeChild(ui.autoSelect.firstChild);
-			}
-			// Make an option for each autonomous mode and put it in the selector
-			for (i = 0; i < value.length; i++) {
-				var option = document.createElement('option');
-				option.innerHTML = value[i];
-				ui.autoSelect.appendChild(option);
-			}
-			// Set value to the already-selected mode. If there is none, nothing will happen.
-			ui.autoSelect.value = NetworkTables.getValue('/SmartDashboard/currentlySelectedMode');
-			break;
-		case '/SmartDashboard/autonomous/selected':
-			ui.autoSelect.value = value;
 			break;
 	}
 
@@ -208,19 +155,6 @@ function onValueChanged(key, value, isNew) {
 	}
 }
 
-// The rest of the doc is listeners for UI elements being clicked on
-ui.example.button.onclick = function() {
-	// Set NetworkTables values to the opposite of whether button has active class.
-	NetworkTables.setValue('/SmartDashboard/exampleVariable', this.className != 'active');
-};
-
-// Reset gyro value to 0 on click
-ui.gyro.container.onclick = function() {
-	// Store previous gyro val, will now be subtracted from val for callibration
-	ui.gyro.offset = ui.gyro.val;
-	// Trigger the gyro to recalculate value.
-	onValueChanged('/SmartDashboard/drive/navX/yaw', ui.gyro.val);
-};
 
 // Open tuning section when button is clicked
 ui.tuning.button.onclick = function() {
@@ -242,12 +176,12 @@ ui.tuning.get.onclick = function() {
 	ui.tuning.value.value = NetworkTables.getValue(ui.tuning.name.value);
 };
 
-// Update NetworkTables when autonomous selector is changed
-ui.autoSelect.onchange = function() {
-	NetworkTables.setValue('/SmartDashboard/autonomous/selected', this.value);
+// Get value of speed slider when it's adjusted
+ui.lowerMotorSpeed.onchange = function() {
+	NetworkTables.setValue('/SmartDashboard/lowerMotorSpeed', parseInt(this.value));
 };
 
-// Get value of arm height slider when it's adjusted
-ui.armPosition.onchange = function() {
-	NetworkTables.setValue('/SmartDashboard/arm/encoder', parseInt(this.value));
+// Get value of speed slider when it's adjusted
+ui.upperMotorSpeed.onchange = function() {
+	NetworkTables.setValue('/SmartDashboard/upperMotorSpeed', parseInt(this.value));
 };
