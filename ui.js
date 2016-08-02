@@ -179,13 +179,13 @@ ui.tuning.get.onclick = function() {
 };
 
 // Get value of speed slider when it's adjusted
-ui.lowerMotorSpeed.onchange = function() {
+ui.lowerMotorSpeed.oninput = function() {
 	NetworkTables.setValue('/SmartDashboard/lowerMotorSpeed', parseInt(this.value));
 	ui.lowerOutput.innerHTML = this.value
 };
 
 // Get value of speed slider when it's adjusted
-ui.upperMotorSpeed.onchange = function() {
+ui.upperMotorSpeed.oninput = function() {
 	NetworkTables.setValue('/SmartDashboard/upperMotorSpeed', parseInt(this.value));
 	ui.upperOutput.innerHTML = this.value
 };
