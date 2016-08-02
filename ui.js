@@ -12,7 +12,9 @@ var ui = {
 	},
 	autoSelect: document.getElementById('auto-select'),
   lowerMotorSpeed: document.getElementById('lower-speed'),
-  upperMotorSpeed: document.getElementById('upper-speed')
+  upperMotorSpeed: document.getElementById('upper-speed'),
+	lowerOutput: document.getElementById('lower-output'),
+	upperOutput: document.getElementById('upper-output')
 };
 
 // Sets function to be called on NetworkTables connect. Commented out because it's usually not necessary.
@@ -179,9 +181,11 @@ ui.tuning.get.onclick = function() {
 // Get value of speed slider when it's adjusted
 ui.lowerMotorSpeed.onchange = function() {
 	NetworkTables.setValue('/SmartDashboard/lowerMotorSpeed', parseInt(this.value));
+	ui.lowerOutput.innerHTML = this.value
 };
 
 // Get value of speed slider when it's adjusted
 ui.upperMotorSpeed.onchange = function() {
 	NetworkTables.setValue('/SmartDashboard/upperMotorSpeed', parseInt(this.value));
+	ui.upperOutput.innerHTML = this.value
 };
