@@ -6,6 +6,12 @@
 ::-webkit-scrollbar {
     display: none;
 }
+
+input[type=range]:after{
+  content: attr(value);
+  display: block;
+}
+
 body {
     font: 16px sans-serif;
     -webkit-user-select: none;

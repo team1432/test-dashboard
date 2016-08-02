@@ -30,11 +30,11 @@
             The <p> below then says the value. -->
         <div>
             <p>Adjust Upper Speed</p>
-            <input id="upper-speed" type="range" min="0" max="100" value="0">
+            <input id="upper-speed" type="range" min="0" onchange="this.setAttribute('value',this.value);" max="100" value="0">
         </div>
         <div>
             <p>Adjust Lower Speed</p>
-            <input id="lower-speed" type="range" min="0" max="100" value="0">
+            <input id="lower-speed" type="range" min="0" onchange="this.setAttribute('value',this.value);" max="100" value="0">
         </div>
     </aside>
     <script src="/networktables/networktables.js"></script>
