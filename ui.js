@@ -41,6 +41,20 @@ function onValueChanged(key, value, isNew) {
 
 	// This switch statement chooses which UI element to update when a NetworkTables variable changes.
 	switch (key) {
+		case '/SmartDashboard/lowerMotorSpeed':
+			if(value > 100)
+				value = 100;
+			else if(value < 0)
+				value = 0;
+			ui.lowerMotorSpeed.value = value
+			break;
+		case '/SmartDashboard/upperMotorSpeed':
+			if(value > 100)
+				value = 100;
+			else if(value < 0)
+				value = 0;
+			ui.upperMotorSpeed.value = value
+			break;
 		case '/SmartDashboard/arm/encoder':
 			// 0 is all the way back, 1200 is 45 degrees forward. We don't want it going past that.
 			if (value > 1140) {
@@ -179,11 +193,11 @@ ui.tuning.get.onclick = function() {
 };
 
 // Get value of speed slider when it's adjusted
-ui.lowerMotorSpeed.oninput = function() {
+ui.lowerMotorSpeed.onchange = function() {
 	NetworkTables.setValue('/SmartDashboard/lowerMotorSpeed', parseInt(this.value));
 };
 
 // Get value of speed slider when it's adjusted
-ui.upperMotorSpeed.oninput = function() {
+ui.upperMotorSpeed.onchange = function() {
 	NetworkTables.setValue('/SmartDashboard/upperMotorSpeed', parseInt(this.value));
 };
