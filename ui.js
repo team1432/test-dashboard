@@ -19,7 +19,7 @@ var ui = {
 		get: $('#get')
 	},
 	autoSelect: $('#auto-select'),
-    armPosition: $('#arm-position')
+    armPosition: $('#arm-position'),
   lowerMotorSpeed: $('#lower-speed'),
   upperMotorSpeed: $('#upper-speed'),
 };
