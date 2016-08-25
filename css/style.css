@@ -6,6 +6,7 @@
 ::-webkit-scrollbar {
     display: none;
 }
+
 body {
     font: 16px sans-serif;
     -webkit-user-select: none;
@@ -82,7 +83,7 @@ header {
     overflow: hidden;
     background-color: #333;
     /* You'll need to mess with this a bit to get your camera to work. Replace the url with a live-updating image feed from your camera. Using other camera streaming systems will require some tweaking. */
-    background-image: url('http://roborio-1432-frc.local');
+    /*background-image: url('http://roborio-1432-frc.local:5800/?action=stream');*/
 }
 #tuning {
     width: 50vw;
