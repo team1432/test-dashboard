@@ -1,32 +1,40 @@
+var $ = function(selector) {
+  list = document.querySelectorAll(selector);
+  if(list.length == 1) {
+    return list[0];
+  } else {
+    return list
+  }
+};
 // Define UI elements
 var ui = {
-	timer: document.getElementById('timer'),
-	robotState: document.getElementById('robot-state'),
+	timer: $('#timer'),
+	robotState: $('#robot-state'),
 	gyro: {
-		container: document.getElementById('gyro'),
+		container: $('#gyro'),
 		val: 0,
 		offset: 0,
 		visualVal: 0,
-		arm: document.getElementById('gyro-arm'),
-		number: document.getElementById('gyro-number')
+		arm: $('#gyro-arm'),
+		number: $('#gyro-number')
 	},
 	robotDiagram: {
-		arm: document.getElementById('robot-arm')
+		arm: $('#robot-arm')
 	},
 	example: {
-		button: document.getElementById('example-button'),
-		readout: document.getElementById('example-readout')
+		button: $('#example-button'),
+		readout: $('#example-readout')
 	},
 	tuning: {
-		list: document.getElementById('tuning'),
-		button: document.getElementById('tuning-button'),
-		name: document.getElementById('name'),
-		value: document.getElementById('value'),
-		set: document.getElementById('set'),
-		get: document.getElementById('get')
+		list: $('#tuning'),
+		button: $('#tuning-button'),
+		name: $('#name'),
+		value: $('#value'),
+		set: $('#set'),
+		get: $('#get')
 	},
-	autoSelect: document.getElementById('auto-select'),
-    armPosition: document.getElementById('arm-position')
+	autoSelect: $('#auto-select'),
+    armPosition: $('#arm-position')
 };
 
 // Sets function to be called on NetworkTables connect. Commented out because it's usually not necessary.
