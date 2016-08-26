@@ -23,10 +23,11 @@
   },
   "homepage": "http://frcdashboard.github.io",
   "devDependencies": {
-    "electron-prebuilt-compile": "*",
-    "electron-compilers": "*"
+    "electron-prebuilt": "^1.2.0"
   },
   "dependencies": {
-    "electron-compile": "*"
+    "brunch": "^2.8.2",
+    "coffee-script-brunch": "^2.0.0",
+    "stylus-brunch": "^2.7.2"
   }
 }

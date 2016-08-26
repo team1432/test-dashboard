@@ -1,0 +1,169 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+body {
+  font: 16px sans-serif;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #fff;
+  overflow: hidden;
+  font-family: 'Roboto', 'Lato', 'Source Sans Pro', sans-serif;
+  background-color: #293d6e;
+}
+button,
+input,
+.select-container,
+select {
+  display: block;
+  color: #fff;
+  background: #314983;
+  border: none;
+  font-size: 14px;
+  padding: 6px 8px;
+  cursor: pointer;
+  outline: 0;
+  transition: all 0.4s ease;
+  z-index: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  border-radius: 2px;
+}
+button:hover,
+input:hover,
+.select-container:hover,
+select:hover {
+  background: #354e8d;
+  z-index: 2;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+button:active,
+input:active,
+.select-container:active,
+select:active {
+  background: #627fc5;
+}
+button:focus,
+input:focus,
+.select-container:focus,
+select:focus {
+  z-index: 3;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+input:focus {
+  background: #fff;
+  color: #000;
+}
+.select-container {
+  padding: 0;
+  display: inline-block;
+}
+select {
+  border: none;
+  background: none;
+  color: #fff;
+  height: 25px;
+}
+input[type="text"],
+input[type="number"] {
+  cursor: text;
+}
+input[type="checkbox"] {
+  -webkit-filter: saturate(0);
+  filter: saturate(0);
+}
+/* Major interface panes, aside, article, header, etc. */
+body > * {
+  padding: 10px;
+  position: fixed;
+  overflow: scroll;
+}
+#timer {
+  font-family: monospace;
+  display: block;
+  height: 20vh;
+  width: 30vw;
+  top: 0;
+  left: 0;
+  font-size: 12vmax;
+  line-height: 0.8;
+}
+header {
+  width: 20vw;
+  height: 20vh;
+  top: 0;
+  left: 30vw;
+  color: #fff;
+}
+#camera {
+  padding: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 50vw;
+  min-width: 600px;
+  height: auto;
+  overflow: hidden;
+  background-color: #333;
+  max-width: 100vw;
+}
+#status {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  width: 200px;
+  text-align: center;
+}
+#status img {
+  width: 100%;
+}
+#tuning {
+  width: 50vw;
+  height: 80vh;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  opacity: 1;
+  align-items: flex-start;
+  transition: all 0.2s ease;
+}
+#tuning.hidden {
+  opacity: 0;
+}
+#tuning *:not(:last-child) {
+  margin-right: 10px;
+}
+#tuning input {
+  flex: 5;
+  flex-shrink: 1;
+  width: 10px;
+}
+#tuning button {
+  flex: 0;
+}
+#tuning div {
+  margin: 20px 0;
+}
+#tuning p {
+  margin-bottom: 10px;
+}
+aside {
+  right: 0;
+  top: 0;
+  width: 15vw;
+  height: 100vh;
+}
+aside * {
+  width: 100%;
+  flex-grow: 1;
+  margin-bottom: 20px;
+  display: block;
+}
+
+
+/*# sourceMappingURL=app.css.map*/
