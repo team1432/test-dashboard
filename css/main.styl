@@ -42,6 +42,7 @@ body
   user-select: none
   color: white
   overflow: hidden
+  font-family: 'Roboto', 'Lato', 'Source Sans Pro', sans-serif
   background-color: background-color
 
 button,
@@ -55,13 +56,16 @@ select
   padding: 6px 8px
   cursor: pointer
   outline: 0
-  transition: all 0.3s ease
+  transition: all 0.4s ease
   elevation: 1
   border-radius: 2px;
 
   &:hover
     background: lighten(background-color, 12%)
     elevation: 2
+
+  &:active
+    background: lighten(background-color, 40%)
 
   &:focus
     elevation: 3
@@ -129,6 +133,7 @@ header
   bottom: 5px
   right: 5px
   width: 200px
+  text-align: center
 
   img
     width: 100%
@@ -138,19 +143,44 @@ header
   height: 80vh
   bottom: 0
   left: 0
+  display: flex
+  opacity: 1
+  align-items: flex-start
+  transition: all 0.2s ease
 
-#tuning div
-  margin: 20px 0
+  &.hidden
+    opacity: 0
 
-#tuning p
-  margin-bottom: 10px
+  *:not(:last-child)
+    margin-right: 10px
+
+  input
+    flex: 5
+    flex-shrink: 1
+    width: 10px
+
+  button
+    flex: 0
+
+  div
+    margin: 20px 0
+
+  p
+    margin-bottom: 10px
 
 aside
   right: 0
   top: 0
   width: 15vw
   height: 100vh
+  display: flex
+  align-content: flex-start
+  align-items: flex-start
+  flex-wrap: wrap
 
-aside > *
-  margin-bottom: 20px
+  *
+    min-width: 10px
+    flex-grow: 1
+    margin-bottom: 20px
+    display: block
 
