@@ -1,5 +1,5 @@
 var $ = function(selector) {
-  list = document.querySelectorAll(selector);
+  var list = document.querySelectorAll(selector);
   if(list.length == 1) {
     return list[0];
   } else {

@@ -11,12 +11,6 @@ const BrowserWindow = electron.BrowserWindow;
 let mainWindow;
 
 function createWindow() {
-	// Create the browser window.
-	mainWindow = new BrowserWindow({
-		width: 1000,
-		height: 600,
-    show: false
-	});
 
   if (process.platform == 'win32') {
     var subpy = require('child_process').spawn('py', ['-3', './server.py']);
@@ -24,10 +18,23 @@ function createWindow() {
     var subpy = require('child_process').spawn('python3', ['./server.py']);
   }
 
-  mainWindow.loadURL('http://localhost:8888');
+	// Create the browser window.
+	mainWindow = new BrowserWindow({
+		width: 1000,
+		height: 600,
+    show: false
+	});
+
+  var url = `file://${__dirname}/index.html`
+  // var url = 'http://localhost:8888'
+
+  mainWindow.loadURL(url);
+  mainWindow.webContents.openDevTools()
+
+  // mainWindow.show()
 
   mainWindow.once('ready-to-show', () => {
-    mainWindow.loadURL('http://localhost:8888');
+    mainWindow.loadURL(url);
     mainWindow.once('ready-to-show', () => {
       mainWindow.show()
     })

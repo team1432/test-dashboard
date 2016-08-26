@@ -1,0 +1,156 @@
+beaver-blue = #293D6E
+background-color = beaver-blue
+
+elevation(level = 1)
+    z-index: level
+
+    if level == -1
+        box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.7);
+
+    if level == 0
+        box-shadow: none;
+
+    if level == 1
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+    if level == 2
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+    if level == 3
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
+    if level == 4
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+
+    if level == 5
+        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+
+*
+  box-sizing: border-box
+  margin: 0
+  padding: 0
+
+
+::-webkit-scrollbar
+  display: none
+
+body
+  font: 16px sans-serif
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  color: white
+  overflow: hidden
+  background-color: background-color
+
+button,
+input,
+.select-container,
+select
+  color: white
+  background: lighten(background-color, 8%)
+  border: none
+  font-size: 14px
+  padding: 6px 8px
+  cursor: pointer
+  outline: 0
+  transition: all 0.3s ease
+  elevation: 1
+  border-radius: 2px;
+
+  &:hover
+    background: lighten(background-color, 12%)
+    elevation: 2
+
+  &:focus
+    elevation: 3
+
+input:focus
+  background: white
+  color: black
+
+.select-container
+  padding: 0
+  display: inline-block
+
+select
+  border: none
+  background: none
+  color: white
+  height: 25px
+
+input[type="text"],
+input[type="number"]
+  cursor: text
+
+input[type="checkbox"]
+  -webkit-filter: saturate(0)
+  filter: saturate(0)
+
+
+/* Major interface panes, aside, article, header, etc. */
+body > *
+  padding: 10px
+  position: fixed
+  overflow: scroll
+
+#timer
+  font-family: monospace
+  display: block
+  height: 20vh
+  width: 30vw
+  top: 0
+  left: 0
+  font-size: 12vmax
+  line-height: .8
+
+header
+  width: 20vw
+  height: 20vh
+  top: 0
+  left: 30vw
+  color: white
+
+#camera
+  padding: 0
+  position: fixed
+  bottom: 0
+  left: 0
+  width: 50vw
+  min-width: 600px
+  height: auto
+  overflow: hidden
+  background-color: #333
+  max-width: 100vw
+
+#status
+  position: fixed
+  bottom: 5px
+  right: 5px
+  width: 200px
+
+  img
+    width: 100%
+  
+#tuning
+  width: 50vw
+  height: 80vh
+  bottom: 0
+  left: 0
+
+#tuning div
+  margin: 20px 0
+
+#tuning p
+  margin-bottom: 10px
+
+aside
+  right: 0
+  top: 0
+  width: 15vw
+  height: 100vh
+
+aside > *
+  margin-bottom: 20px
+

@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+  <head>
+    <script>if (window.require) require('electron-compile/lib/initialize-renderer').initializeRendererProcess(false);</script>
     <meta charset="utf-8">
     <title>FRC Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
+    <link rel="stylesheet" href="./css/main.styl">
+  </head>
 
-<body>
+  <body>
     <!-- Clock that shows up in top left -->
     <div id="timer">2:15</div>
     <header>
-        <!-- Tells whether robot is connected to dashboard. -->
-        <div id="robot-state">Unknown state</div>
-        <button id="tuning-button">Tuning</button>
+      <!-- Tells whether robot is connected to dashboard. -->
+      <button id="tuning-button">Tuning</button>
     </header>
     <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
-        More explanation in that CSS rule. -->
-    <img id="camera" src="http://roborio-1432-frc.local:5800/?action=stream"/>
-    <div id="tuning" style="display: none;">
+      More explanation in that CSS rule. -->
+      <img id="camera" src="http://roborio-1432-frc.local:5800/?action=stream" onerror="this.onerror=null;this.src='images/frc-field.png';"/>
+      <div id="tuning" style="display: none;">
         <input type="text" placeholder="Property" id="name">
         <input type="text" placeholder="Value" id="value">
         <button id="set">Set</button>
         <button id="get">Get</button>
-    </div>
-    <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
-    <aside>
+      </div>
+      <div id="status">
+        <img class="logo" src="images/logo.svg" alt="Metal Beavers Logo">
+        <div id="robot-state">Unknown state</div>
+      </div>
+      <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
+      <aside>
         <!-- Example button which toggles /SmartDashboard/exampleValue NetworkTables value.
-            The <p> below then says the value. -->
-        <div>
-            <p>Adjust Upper Speed</p>
+          The <p> below then says the value. -->
+          <div>
+            <p>Upper Speed</p>
             <input id="upper-speed" type="number" min="0" max="100" value="0">
-        </div>
-        <div>
-            <p>Adjust Lower Speed</p>
+          </div>
+          <div>
+            <p>Lower Speed</p>
             <input id="lower-speed" type="number" min="0" max="100" value="0">
-        </div>
-    </aside>
-    <script src="/networktables/networktables.js"></script>
-    <script src="ui.js"></script>
-</body>
+          </div>
+      </aside>
+      <script src="http://localhost:8888/networktables/networktables.js"></script>
+      <script src="ui.js"></script>
+  </body>
 
 </html>
