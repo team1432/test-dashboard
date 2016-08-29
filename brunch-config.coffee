@@ -1,10 +1,10 @@
 module.exports =
-  npm: enabled: false
 
   files:
     javascripts: joinTo: 'app.js'
     stylesheets: joinTo: 'app.css'
 
+  npm: enabled: false
   modules:
     definition: false
     wrapper: (path, data) ->
@@ -14,3 +14,8 @@ module.exports =
         #{data}
       }).call(this);
       """
+
+  plugins:
+
+    stylus:
+      plugins: ['jeet', 'axis']

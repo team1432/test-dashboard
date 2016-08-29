@@ -8,34 +8,47 @@
   </head>
 
   <body>
-    <!-- Clock that shows up in top left -->
-    <div id="timer">2:15</div>
-    <header>
-      <!-- Tells whether robot is connected to dashboard. -->
-    </header>
-    <!-- You'll need to mess around with the CSS of #camera (found in css/style.css) to get it to work.
-      More explanation in that CSS rule. -->
-      <img id="camera" src="http://roborio-1432-frc.local:5800/?action=stream" onerror="this.onerror=null;this.src='images/frc-field.png';"/>
-      <div id="tuning" class="hidden">
-        <input type="text" placeholder="Property" id="name">
-        <input type="text" placeholder="Value" id="value">
-        <button id="set">Set</button>
-        <button id="get">Get</button>
-      </div>
+    <div class="left">
       <div id="status">
+        <!-- Clock that shows up in top left -->
+        <span id="timer">2:15</span>
         <img class="logo" src="images/logo.svg" alt="Metal Beavers Logo">
-        <div id="robot-state">Unknown state</div>
       </div>
-      <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
-      <aside>
-        <p>Upper Speed</p>
-        <input id="upper-speed" type="number" min="0" max="100" value="0">
-        <p>Lower Speed</p>
-        <input id="lower-speed" type="number" min="0" max="100" value="0">
+      <div class="left-content">
+        <div id="tuning" class="hidden">
+          <input type="text" placeholder="Property" id="name">
+          <input type="text" placeholder="Value" id="value">
+          <button id="set">Set</button>
+          <button id="get">Get</button>
+        </div>
+        <div id="camera">
+          <img src="http://roborio-1432-frc.local:5800/?action=stream" />
+          <button id="camera-refresh">⟳</button>
+        </div>
+      </div>
+      <div id="left-buttons">
         <button id="tuning-button">Variables</button>
-      </aside>
-      <script src="http://localhost:8888/networktables/networktables.js"></script>
-      <script src="app.js"></script>
+        <button onclick="location.reload()">Reload</button>
+      </div>
+    </div>
+    <!-- The sidebar of the dashboard. Designed for smaller control elements like selection boxes and small buttons. -->
+    <div class="right">
+      <div class="right-content">
+        <input id="upper-speed" type="range" min="0" max="100" value="0">
+        <svg id="launcher" viewBox="0 70 220 250">
+          <g transform="translate(200, 90), rotate(-30, 0, 200)" >
+          <rect id="top" width="18" height="10" y="-10"/>
+          <circle id="upperWheel" cx="9" cy="22" r="15" />
+          <circle id="lowerWheel" cx="9" cy="100" r="15" />
+          <rect id="side" width="18" height="200" />
+          </g>
+          <rect id="bottom" width="200" height="10" x="0" y="290" />
+        </svg>
+        <input id="lower-speed" type="range" min="0" max="100" value="0">
+      </div>
+    </div>
+    <script src="http://localhost:8888/networktables/networktables.js"></script>
+    <script src="app.js"></script>
   </body>
 
 </html>

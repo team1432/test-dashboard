@@ -1,35 +1,15 @@
 beaver-blue = #293D6E
 background-color = beaver-blue
+status-height = 150px
 
-elevation(level = 1)
-    z-index: level
-
-    if level == -1
-        box-shadow: inset 0 7px 9px -7px rgba(0,0,0,0.7);
-
-    if level == 0
-        box-shadow: none;
-
-    if level == 1
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-
-    if level == 2
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-
-    if level == 3
-        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-
-    if level == 4
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-
-    if level == 5
-        box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+@require 'elevation'
+@require 'jeet'
+@require 'axis'
 
 *
   box-sizing: border-box
   margin: 0
   padding: 0
-
 
 ::-webkit-scrollbar
   display: none
@@ -46,7 +26,8 @@ body
   background-color: background-color
 
 button,
-input,
+input[type="number"],
+input[type="text"],
 .select-container,
 select
   display: block
@@ -59,9 +40,10 @@ select
   outline: 0
   transition: all 0.4s ease
   elevation: 1
-  border-radius: 2px;
+  border-radius: 2px
+  margin: 5px
 
-  &:hover
+  &:hover:not(:focus)
     background: lighten(background-color, 12%)
     elevation: 2
 
@@ -94,60 +76,133 @@ input[type="checkbox"]
   filter: saturate(0)
 
 
+input[type="range"]
+  padding: 20px
+  -webkit-appearance: none
+  width: 100%
+  margin: 0
+  outline: none
+  background: transparent
+
+  &::before
+    content: attrs(value)
+    width: 100px
+    height: 100px
+
+  &::-webkit-slider-runnable-track
+    background: rgba(0,0,0,0.1)
+    border: none
+    border-radius: 0.5em
+    height: 0.5em
+    width: 100%
+
+  &:active::-webkit-slider-thumb, &::-webkit-slider-thumb:hover
+      transform: scale(1.5)
+      cursor: pointer
+      elevation: 2
+
+  &::-webkit-slider-thumb
+    -webkit-appearance: none
+    border: none
+    height: 1.5em
+    width: 1.5em
+    border-radius: 50%
+    background: #0074d9
+    margin-top: calc(-2em / 2 + 0.5em / 2)
+    transition: all 0.2s ease
+    elevation: 1
+
+    &:active
+      background: #0063b8
+
+  &:focus
+    outline: none
+
+    &::-webkit-slider-runnable-track
+      background: rgba(0,0,0,0.1)
+
+
 /* Major interface panes, aside, article, header, etc. */
 body > *
-  padding: 10px
-  position: fixed
   overflow: scroll
 
-#timer
-  font-family: monospace
-  display: block
-  height: 20vh
-  width: 30vw
-  top: 0
-  left: 0
-  font-size: 12vmax
-  line-height: .8
+.left
+  height: 100vh
+  col(1/2)
+  position: relative
 
-header
-  width: 20vw
-  height: 20vh
-  top: 0
-  left: 30vw
-  color: white
+  *
+    max-width: 100%
+
+  .left-content
+    // height: calc(100vh - status-height)
+    align: vertically
+    width: 100%
+
+    &>*
+      position: absolute
+      top: 0
+  #left-buttons
+    absolute: bottom left
+
+    button
+      display: inline-block
+
+svg#launcher
+  stroke: white
+  stroke-width: 2
+  fill: beaver-blue
+  height: 300px
+  margin: 15px
+  center: both
+
+body.disconnected
+  svg#launcher
+    stroke: red
 
 #camera
   padding: 0
-  position: fixed
-  bottom: 0
-  left: 0
-  width: 50vw
-  min-width: 600px
-  height: auto
   overflow: hidden
+  bottom: 0
   background-color: #333
-  max-width: 100vw
-
-#status
-  position: fixed
-  bottom: 5px
-  right: 5px
-  width: 200px
-  text-align: center
+  transition: opacity 0.15s ease
+  position: relative
 
   img
-    width: 100%
-  
+    height: auto
+
+  #camera-refresh
+    absolute: bottom right
+    font-size: 20px
+
+#tuning:not(.hidden) + #camera
+  opacity: 0
+
+#status
+  position: relative
+  width: 100%
+  height: status-height
+
+  #timer
+    font-family: monospace
+    height: status-height
+    line-height: status-height
+    font-size: status-height
+
+  .logo
+    position: absolute
+    right: 0
+    top: 0
+    height: status-height - 50
+    margin: ((status-height - @height)/2) 0
+
 #tuning
-  width: 50vw
-  height: 80vh
   bottom: 0
-  left: 0
   display: flex
+  width: 100%
   opacity: 1
-  align-items: flex-start
-  transition: all 0.2s ease
+  align-items: center
+  transition: all 0.15s ease
 
   &.hidden
     opacity: 0
@@ -156,9 +211,9 @@ header
     margin-right: 10px
 
   input
+    width: 10px
     flex: 5
     flex-shrink: 1
-    width: 10px
 
   button
     flex: 0
@@ -169,14 +224,16 @@ header
   p
     margin-bottom: 10px
 
-aside
+.right
   right: 0
-  top: 0
-  width: 15vw
   height: 100vh
+  position: relative
+
+  .right-content
+    width: 100%
+    align: both
 
   *
-    width: 100%
     flex-grow: 1
     margin-bottom: 20px
     display: block

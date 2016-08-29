@@ -8,8 +8,13 @@ $ = (selector) ->
 onRobotConnection = (connected) ->
   state = if connected then 'Connected' else 'Disconnected'
   console.log state
-  ui.robotState.innerHTML = state
-  ui.robotState.classList.add state.toLowerCase()
+  if connected
+    document.body.classList.add 'connected'
+    document.body.classList.remove 'disconnected'
+    refreshCamera()
+  else
+    document.body.classList.add 'disconnected'
+    document.body.classList.remove 'connected'
   return
 
 onValueChanged = (key, value, isNew) ->
@@ -145,6 +150,9 @@ for element in $('button, .select-container, select')
 ui = 
   timer: $('#timer')
   robotState: $('#robot-state')
+  camera: $('#camera')
+  cameraRefresh: $('#camera-refresh')
+  cameraImage: $('#camera img')
   tuning:
     list: $('#tuning')
     button: $('#tuning-button')
@@ -182,6 +190,16 @@ ui.tuning.get.onclick = ->
   ui.tuning.value.value = NetworkTables.getValue(ui.tuning.name.value)
   return
 
+cameraSrc = ui.cameraImage.getAttribute('src')
+
+refreshCamera = ->
+  ui.cameraImage.setAttribute('src', cameraSrc + new Date().valueOf())
+
+ui.cameraRefresh.onclick = ->
+  refreshCamera()
+
+ui.cameraImage.onerror = ->
+  @src = 'images/frc-field.png'
 # Get value of speed slider when it's adjusted
 
 ui.lowerMotorSpeed.onchange = ->
@@ -193,3 +211,4 @@ ui.lowerMotorSpeed.onchange = ->
 ui.upperMotorSpeed.onchange = ->
   NetworkTables.setValue '/SmartDashboard/upperMotorSpeed', parseInt(@value)
   return
+

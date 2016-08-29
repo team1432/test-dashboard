@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  var $, element, i, len, onRobotConnection, onValueChanged, ref, ui;
+  var $, cameraSrc, element, i, len, onRobotConnection, onValueChanged, ref, refreshCamera, ui;
 
 $ = function(selector) {
   var list;
@@ -16,8 +16,14 @@ onRobotConnection = function(connected) {
   var state;
   state = connected ? 'Connected' : 'Disconnected';
   console.log(state);
-  ui.robotState.innerHTML = state;
-  ui.robotState.classList.add(state.toLowerCase());
+  if (connected) {
+    document.body.classList.add('connected');
+    document.body.classList.remove('disconnected');
+    refreshCamera();
+  } else {
+    document.body.classList.add('disconnected');
+    document.body.classList.remove('connected');
+  }
 };
 
 onValueChanged = function(key, value, isNew) {
@@ -127,6 +133,9 @@ for (i = 0, len = ref.length; i < len; i++) {
 ui = {
   timer: $('#timer'),
   robotState: $('#robot-state'),
+  camera: $('#camera'),
+  cameraRefresh: $('#camera-refresh'),
+  cameraImage: $('#camera img'),
   tuning: {
     list: $('#tuning'),
     button: $('#tuning-button'),
@@ -161,6 +170,20 @@ ui.tuning.set.onclick = function() {
 
 ui.tuning.get.onclick = function() {
   ui.tuning.value.value = NetworkTables.getValue(ui.tuning.name.value);
+};
+
+cameraSrc = ui.cameraImage.getAttribute('src');
+
+refreshCamera = function() {
+  return ui.cameraImage.setAttribute('src', cameraSrc + new Date().valueOf());
+};
+
+ui.cameraRefresh.onclick = function() {
+  return refreshCamera();
+};
+
+ui.cameraImage.onerror = function() {
+  return this.src = 'images/frc-field.png';
 };
 
 ui.lowerMotorSpeed.onchange = function() {
