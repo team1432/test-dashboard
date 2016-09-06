@@ -1,0 +1,101 @@
+@require 'variables'
+@require 'elevation'
+@require 'axis'
+
+button,
+input[type="number"],
+input[type="text"],
+.select-container,
+select
+  display: block
+  color: white
+  background: lighten(background-color, 8%)
+  border: none
+  font-size: 14px
+  padding: 6px 8px
+  cursor: pointer
+  outline: 0
+  transition: all 0.4s ease
+  elevation: 1
+  border-radius: 2px
+  margin: 5px
+
+  &:hover:not(:focus)
+    background: lighten(background-color, 12%)
+    elevation: 2
+
+  &:active
+    background: lighten(background-color, 40%)
+
+  &:focus
+    elevation: 3
+
+input:focus
+  background: white
+  color: black
+
+.select-container
+  padding: 0
+  display: inline-block
+
+select
+  border: none
+  background: none
+  color: white
+  height: 25px
+
+input[type="text"],
+input[type="number"]
+  cursor: text
+
+input[type="checkbox"]
+  -webkit-filter: saturate(0)
+  filter: saturate(0)
+
+
+input[type="range"]
+  padding: 20px
+  -webkit-appearance: none
+  width: 100%
+  margin: 0
+  outline: none
+  background: transparent
+
+  &::before
+    content: attrs(value)
+    width: 100px
+    height: 100px
+
+  &::-webkit-slider-runnable-track
+    background: rgba(0,0,0,0.1)
+    border: none
+    border-radius: 0.5em
+    height: 0.5em
+    width: 100%
+
+  &:active::-webkit-slider-thumb, &::-webkit-slider-thumb:hover
+    transform: scale(1.5)
+    cursor: pointer
+    elevation: 2
+
+  &::-webkit-slider-thumb
+    -webkit-appearance: none
+    border: none
+    height: 1.5em
+    width: 1.5em
+    border-radius: 50%
+    background: #0074d9
+    margin-top: -0.5em
+    transition: all 0.2s ease
+    elevation: 1
+
+    &:active
+      background: #0063b8
+
+  &:focus
+    outline: none
+
+    &::-webkit-slider-runnable-track
+      background: rgba(0,0,0,0.1)
+
+

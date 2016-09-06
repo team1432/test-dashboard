@@ -49,7 +49,7 @@ function createWindow() {
   // Load the server URL.
   mainWindow.loadURL(url);
 
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 
   // Once the python server is ready, reload the server
   mainWindow.once('ready-to-show', () => {

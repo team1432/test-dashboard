@@ -1,20 +1,16 @@
-beaver-blue = #293D6E
-background-color = beaver-blue
-status-height = 150px
-
 @require 'elevation'
 @require 'jeet'
 @require 'axis'
+@require 'inputs'
+@require 'scroll'
 
 *
   box-sizing: border-box
   margin: 0
   padding: 0
 
-::-webkit-scrollbar
-  display: none
-
 body
+  padding: 0 20px
   font: 16px sans-serif
   -webkit-user-select: none
   -moz-user-select: none
@@ -25,121 +21,24 @@ body
   font-family: 'Roboto', 'Lato', 'Source Sans Pro', sans-serif
   background-color: background-color
 
-button,
-input[type="number"],
-input[type="text"],
-.select-container,
-select
-  display: block
-  color: white
-  background: lighten(background-color, 8%)
-  border: none
-  font-size: 14px
-  padding: 6px 8px
-  cursor: pointer
-  outline: 0
-  transition: all 0.4s ease
-  elevation: 1
-  border-radius: 2px
-  margin: 5px
-
-  &:hover:not(:focus)
-    background: lighten(background-color, 12%)
-    elevation: 2
-
-  &:active
-    background: lighten(background-color, 40%)
-
-  &:focus
-    elevation: 3
-
-input:focus
-  background: white
-  color: black
-
-.select-container
-  padding: 0
-  display: inline-block
-
-select
-  border: none
-  background: none
-  color: white
-  height: 25px
-
-input[type="text"],
-input[type="number"]
-  cursor: text
-
-input[type="checkbox"]
-  -webkit-filter: saturate(0)
-  filter: saturate(0)
-
-
-input[type="range"]
-  padding: 20px
-  -webkit-appearance: none
-  width: 100%
-  margin: 0
-  outline: none
-  background: transparent
-
-  &::before
-    content: attrs(value)
-    width: 100px
-    height: 100px
-
-  &::-webkit-slider-runnable-track
-    background: rgba(0,0,0,0.1)
-    border: none
-    border-radius: 0.5em
-    height: 0.5em
-    width: 100%
-
-  &:active::-webkit-slider-thumb, &::-webkit-slider-thumb:hover
-      transform: scale(1.5)
-      cursor: pointer
-      elevation: 2
-
-  &::-webkit-slider-thumb
-    -webkit-appearance: none
-    border: none
-    height: 1.5em
-    width: 1.5em
-    border-radius: 50%
-    background: #0074d9
-    margin-top: calc(-2em / 2 + 0.5em / 2)
-    transition: all 0.2s ease
-    elevation: 1
-
-    &:active
-      background: #0063b8
-
-  &:focus
-    outline: none
-
-    &::-webkit-slider-runnable-track
-      background: rgba(0,0,0,0.1)
-
-
-/* Major interface panes, aside, article, header, etc. */
 body > *
-  overflow: scroll
+  overflow: visible
+
+.left, .right
+  col(1/2, cycle: 2)
 
 .left
   height: 100vh
-  col(1/2)
   position: relative
 
   *
     max-width: 100%
 
   .left-content
-    // height: calc(100vh - status-height)
     align: vertically
     width: 100%
 
-    &>*
+    > *
       position: absolute
       top: 0
   #left-buttons
@@ -152,7 +51,8 @@ svg#launcher
   stroke: white
   stroke-width: 2
   fill: beaver-blue
-  height: 300px
+  width: 100%
+  max-width: 300px
   margin: 15px
   center: both
 
@@ -161,15 +61,17 @@ body.disconnected
     stroke: red
 
 #camera
+  corners()
   padding: 0
   overflow: hidden
-  bottom: 0
-  background-color: #333
-  transition: opacity 0.15s ease
+  transition: visibility 0s camera-transition-duration, opacity camera-transition-duration ease
+  elevation: 2
   position: relative
+  visibility: visible
 
   img
-    height: auto
+    corners()
+    margin-bottom: -3px
 
   #camera-refresh
     absolute: bottom right
@@ -177,6 +79,8 @@ body.disconnected
 
 #tuning:not(.hidden) + #camera
   opacity: 0
+  visibility: hidden
+  transition: visibility 0s 0s, opacity camera-transition-duration ease
 
 #status
   position: relative
@@ -202,10 +106,6 @@ body.disconnected
   width: 100%
   opacity: 1
   align-items: center
-  transition: all 0.15s ease
-
-  &.hidden
-    opacity: 0
 
   *:not(:last-child)
     margin-right: 10px
@@ -225,16 +125,14 @@ body.disconnected
     margin-bottom: 10px
 
 .right
-  right: 0
   height: 100vh
   position: relative
 
   .right-content
     width: 100%
-    align: both
+    align: vertically
 
   *
     flex-grow: 1
-    margin-bottom: 20px
     display: block
 
